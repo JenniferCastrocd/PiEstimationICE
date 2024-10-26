@@ -1,0 +1,8 @@
+<state>
+  <timestamp value='1729974025299' />
+  <sourceSet name='default'>
+    <source name='C:\Users\jennc\OneDrive\Escritorio\quinto semestre\Computación en internet\monteCarlo\MonteCarlo.ice' />
+    <arg value='C:\Program Files\ZeroC\Ice-3.7.10\\bin\slice2java.exe' />
+    <arg value='-IC:\Program Files\ZeroC\Ice-3.7.10\\slice' />
+  </sourceSet>
+</state>
