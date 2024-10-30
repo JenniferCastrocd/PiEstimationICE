@@ -1,0 +1,54 @@
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class PiEstimationTest {
+
+    private static final double PI_REAL = 3.141592653589793;
+    private static final double TOLERANCE = 0.01;
+
+    // Prueba con diferentes números de puntos (N) para ver precisión de la estimación
+    @Test
+    public void testPiEstimationWithDifferentPoints() {
+        int[] pointsValues = {1000, 10000, 100000, 1000000};
+
+        for (int points : pointsValues) {
+            double estimate = PiEstimator.estimatePi(points, 10); // Usa 4 workers para esta prueba
+            double error = Math.abs(estimate - PI_REAL);
+            System.out.printf("N=%d puntos -> π estimado = %.10f, Error = %.10f%n", points, estimate, error);
+            assertTrue(error < TOLERANCE, "Error fuera de tolerancia para N=" + points);
+        }
+    }
+
+    // Prueba con diferentes números de trabajadores (n) para ver que funciona con diferentes configuraciones
+    @Test
+    public void testPiEstimationWithDifferentWorkers() {
+        int points = 100000; // Fijamos un número de puntos para probar distintos números de workers
+        int[] workerCounts = {1, 2, 4, 8,12,13,14,15,15,17,18,19,20};
+
+        for (int workers : workerCounts) {
+            double estimate = PiEstimator.estimatePi(points, workers);
+            double error = Math.abs(estimate - PI_REAL);
+            System.out.printf("Workers=%d -> π estimado = %.10f, Error = %.10f%n", workers, estimate, error);
+            assertTrue(error < TOLERANCE, "Error fuera de tolerancia con " + workers + " workers");
+        }
+    }
+
+    // Prueba para medir el tiempo de ejecución con distintos números de trabajadores (n) y puntos (N)
+    @Test
+    public void testPerformanceWithDifferentWorkersAndPoints() {
+        int[] pointsValues = {10000, 100000, 1000000};
+        int[] workerCounts = {1, 2, 4, 8,12,13,14,15,15,17,18,19,20};
+
+        for (int points : pointsValues) {
+            System.out.printf("\n== Evaluación de rendimiento con N=%d puntos ==%n", points);
+            for (int workers : workerCounts) {
+                long startTime = System.currentTimeMillis();
+                double estimate = PiEstimator.estimatePi(points, workers);
+                long duration = System.currentTimeMillis() - startTime;
+                System.out.printf("Workers=%d, N=%d -> Tiempo de ejecución: %d ms, π estimado = %.10f%n",
+                        workers, points, duration, estimate);
+            }
+        }
+    }
+}
+
