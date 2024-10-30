@@ -46,15 +46,15 @@ public class Client {
                 communicator.stringToProxy("master:default -h localhost -p 10000"));
 
         if (master != null) {
-            System.out.println("Solicitando estimación de Pi con " + numPoints + " puntos...");
+            System.out.println("Solicitando estimación de π con " + numPoints + " puntos...");
 
             // Enviar solicitud de estimación sin especificar el número de workers
             return master.estimatePiAsync(numPoints)
                     .thenAccept(result -> {
                         System.out.println("\nResultados:");
                         System.out.println("------------");
-                        System.out.println("Estimación de Pi: " + result);
-                        System.out.println("Valor real de Pi: " + Math.PI);
+                        System.out.println("Estimación de π: " + result);
+                        System.out.println("Valor real de π: " + Math.PI);
                         System.out.println("Error absoluto: " + Math.abs(result - Math.PI));
                         System.out.println("------------");
                     });

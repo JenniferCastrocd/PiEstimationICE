@@ -6,20 +6,20 @@ public class PiEstimationTest {
     private static final double PI_REAL = 3.141592653589793;
     private static final double TOLERANCE = 0.01;
 
-    // Prueba con diferentes números de puntos (N) para ver precisión de la estimación
+    // Esta prueba la hacemos con diferentes números de puntos para ver precisión de la estimación
     @Test
     public void testPiEstimationWithDifferentPoints() {
         int[] pointsValues = {1000, 10000, 100000, 1000000};
 
         for (int points : pointsValues) {
-            double estimate = PiEstimator.estimatePi(points, 10); // Usa 4 workers para esta prueba
+            double estimate = PiEstimator.estimatePi(points, 10);
             double error = Math.abs(estimate - PI_REAL);
             System.out.printf("N=%d puntos -> π estimado = %.10f, Error = %.10f%n", points, estimate, error);
             assertTrue(error < TOLERANCE, "Error fuera de tolerancia para N=" + points);
         }
     }
 
-    // Prueba con diferentes números de trabajadores (n) para ver que funciona con diferentes configuraciones
+    // Prueba con diferentes números de trabajadores para ver que funciona con diferentes configuraciones
     @Test
     public void testPiEstimationWithDifferentWorkers() {
         int points = 100000; // Fijamos un número de puntos para probar distintos números de workers
@@ -33,7 +33,7 @@ public class PiEstimationTest {
         }
     }
 
-    // Prueba para medir el tiempo de ejecución con distintos números de trabajadores (n) y puntos (N)
+    // Esta prueba se usa para medir el tiempo de ejecución con distintos números de trabajadores (n) y puntos (N)
     @Test
     public void testPerformanceWithDifferentWorkersAndPoints() {
         int[] pointsValues = {10000, 100000, 1000000};
