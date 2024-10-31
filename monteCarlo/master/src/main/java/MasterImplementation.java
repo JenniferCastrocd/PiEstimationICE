@@ -24,6 +24,8 @@ public class MasterImplementation implements TaskCoordinator{
 
     @Override
     public float estimatePi(int numPoints, Current current) {
+        long startTime = System.nanoTime();  // Inicio del tiempo
+
         int numWorkers = workerProxies.size();
         if (numWorkers == 0) {
             System.out.println("No hay workers registrados para realizar la estimación.");
@@ -57,6 +59,10 @@ public class MasterImplementation implements TaskCoordinator{
             System.err.println("Error al obtener resultados: " + e.getMessage());
             return 0.0f;
         }
+
+        long endTime = System.nanoTime();  // Fin del tiempo
+		long processingTime = endTime - startTime; // Tiempo en nanosegundos
+		System.out.println("Tiempo de procesamiento del servidor: " + processingTime / 1_000_000 + " ms");
 
         return 4.0f * totalPointsInCircle / numPoints;
     }
